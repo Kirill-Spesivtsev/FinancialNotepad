@@ -56,7 +56,7 @@ namespace FinancialNotepad.Controllers
         {
             if (_context.Payments == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Transactions'  is null.");
+                return Problem("No Items in Payments");
             }
             var transaction = await _context.Payments.FindAsync(id);
             if (transaction != null)
