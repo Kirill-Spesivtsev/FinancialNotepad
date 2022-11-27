@@ -2,6 +2,7 @@
 using FinancialNotepad.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialNotepad.Controllers
 {
@@ -24,7 +25,7 @@ namespace FinancialNotepad.Controllers
         // GET: Transaction/AddOrEdit
         public IActionResult AddOrEdit(int id = 0)
         {
-            PopulateCategories();
+            //PopulateCategories();
             if (id == 0)
                 return View(new Payment());
             else
@@ -34,7 +35,7 @@ namespace FinancialNotepad.Controllers
         // POST: Transaction/AddOrEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("TransactionId,CategoryId,Amount,Note,Date")] Transaction transaction)
+        public async Task<IActionResult> AddOrEdit([Bind("PaymentId,CategoryId,Amount,Note,Date")] Payment transaction)
         {
             if (ModelState.IsValid)
             {

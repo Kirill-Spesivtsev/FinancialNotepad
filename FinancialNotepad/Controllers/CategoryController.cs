@@ -2,6 +2,7 @@
 using FinancialNotepad.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialNotepad.Controllers
 {
@@ -19,7 +20,7 @@ namespace FinancialNotepad.Controllers
         {
             return _context.Categories != null ?
                         View(await _context.Categories.ToListAsync()) :
-                        Problem("No Items");
+                        Problem("No Items in Payments");
         }
 
 
@@ -58,7 +59,7 @@ namespace FinancialNotepad.Controllers
         {
             if (_context.Categories == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
+                return Problem("No Items in Categories");
             }
             var category = await _context.Categories.FindAsync(id);
 
