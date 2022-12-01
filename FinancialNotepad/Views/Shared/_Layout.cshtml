@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://cdn.syncfusion.com/ej2/20.1.55/bootstrap5.css" rel="stylesheet"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/FinancialNotepad.styles.css" asp-append-version="true" />
     <script src="https://cdn.syncfusion.com/ej2/20.1.55/dist/ej2.min.js"></script>
 </head>
@@ -36,9 +39,7 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
-            <div>
-                <ejs-calendar id="calendar"></ejs-calendar>
-            </div>
+
         </main>
     </div>
 

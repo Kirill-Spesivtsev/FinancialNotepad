@@ -28,7 +28,7 @@ namespace FinancialNotepad.Controllers
         public IActionResult AddOrEdit(int id = 0)
         {
             if (id == 0)
-                return View(new Category());
+                return View(new Category{CategoryId = 0});
             else
                 return View(_context.Categories.Find(id));
 
@@ -46,7 +46,12 @@ namespace FinancialNotepad.Controllers
                 else
                     _context.Update(category);
                 await _context.SaveChangesAsync();
+                
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                
             }
             return View(category);
         }
