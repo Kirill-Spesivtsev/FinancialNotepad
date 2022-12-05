@@ -20,7 +20,7 @@ namespace FinancialNotepad.Controllers
         {
             return _context.Categories != null ?
                         View(await _context.Categories.ToListAsync()) :
-                        Problem("No Items in Payments");
+                        Problem("No Items in Categories");
         }
 
 
@@ -39,20 +39,20 @@ namespace FinancialNotepad.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEdit([Bind("CategoryId,Title,Icon,Type")] Category category)
         {
+            ModelState.Clear();
+            //TryValidateModel(category);
             if (ModelState.IsValid)
             {
                 if (category.CategoryId == 0)
                     _context.Add(category);
                 else
                     _context.Update(category);
+                ModelState.AddModelError("", "1234");
                 await _context.SaveChangesAsync();
                 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                
-            }
+
             return View(category);
         }
 
