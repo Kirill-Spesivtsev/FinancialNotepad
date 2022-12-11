@@ -4,6 +4,7 @@ using FinancialNotepad.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinancialNotepad.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221206100142_RevisedDbMigration")]
+    partial class RevisedDbMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,64 +47,6 @@ namespace FinancialNotepad.Data.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("FinancialNotepad.Models.CheckingAccount", b =>
-                {
-                    b.Property<int>("CheckingAccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CheckingAccountId"), 1L, 1);
-
-                    b.Property<long>("BankAccount")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("BankName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CheckingAccountId");
-
-                    b.ToTable("CheckingAccounts");
-                });
-
-            modelBuilder.Entity("FinancialNotepad.Models.Credit", b =>
-                {
-                    b.Property<int>("CreditId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CreditId"), 1L, 1);
-
-                    b.Property<double>("AnnualPercent")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<double>("LeftToPay")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Period")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("TotalSum")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("CreditId");
-
-                    b.ToTable("Credit");
                 });
 
             modelBuilder.Entity("FinancialNotepad.Models.Currency", b =>

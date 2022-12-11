@@ -52,7 +52,7 @@ namespace FinancialNotepad.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "Transactions",
                 columns: table => new
                 {
                     TransactionId = table.Column<int>(type: "int", nullable: false)
@@ -77,7 +77,7 @@ namespace FinancialNotepad.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_CategoryId",
-                table: "Payments",
+                table: "Transactions",
                 column: "CategoryId");
         }
 
@@ -87,7 +87,7 @@ namespace FinancialNotepad.Data.Migrations
                 name: "Currencies");
 
             migrationBuilder.DropTable(
-                name: "Payments");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "Taxes");

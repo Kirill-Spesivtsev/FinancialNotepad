@@ -95,7 +95,7 @@ namespace FinancialNotepad.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("FinancialNotepad.Models.Tax", b =>

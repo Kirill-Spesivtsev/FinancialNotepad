@@ -7,5 +7,9 @@ public class Currency
     [Key]
     public int CurrencyId { get; set; }
 
-    public int Name { get; set; }
+    [Required]
+    [StringLength(40)]
+    public string Name { get; set; }
+
+    public char Symbol { get; set; }
 }

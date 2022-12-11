@@ -41,6 +41,7 @@ namespace FinancialNotepad.Controllers
         {
             ModelState.Clear();
             //TryValidateModel(category);
+            //ModelState.ClearValidationState(nameof(Movie));
             if (ModelState.IsValid)
             {
                 if (category.CategoryId == 0)

@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinancialNotepad.Models;
 
-public class Payment
+public class Transaction
 {
     [Key]
     public int TransactionId { get; set; }
 
     [Range(1,int.MaxValue,ErrorMessage ="Please select a category")]
     public int CategoryId { get; set; }
-    public Category? Category { get; set; }
 
     [Range(1, int.MaxValue, ErrorMessage = "Amount should be greater than 0")]
     public int Amount { get; set; }
