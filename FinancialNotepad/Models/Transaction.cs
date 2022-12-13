@@ -18,7 +18,7 @@ public class Transaction
 
     public int TaxId { get; set; }
 
-    [Column(TypeName = "nvarchar(75)")]
+    [Column(TypeName = "nvarchar(60)")]
     public string? Note { get; set; }
 
     public DateTime Date { get; set; } = DateTime.Now;

@@ -12,7 +12,7 @@ public class Category
     [Required(ErrorMessage = "Title is necessary")]
     public string Title { get; set; }
 
-    [Column(TypeName = "nvarchar(5)")]
+    [Column(TypeName = "nvarchar(20)")]
     public string Icon { get; set; } = "";
 
     [Column(TypeName = "nvarchar(10)")]

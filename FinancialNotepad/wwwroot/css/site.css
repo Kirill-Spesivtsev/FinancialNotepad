@@ -32,25 +32,25 @@ body {
 }
 
 
-/*BreadCrumb*/
+
 .e-breadcrumb a, .e-breadcrumb a:hover {
     text-decoration: none !important;
     color: inherit !important;
 }
 
-/*Button*/
+
 .btn:focus, .btn:active {
     outline: none !important;
     box-shadow: none;
 }
 
-/*Hyperlink*/
+
 .no-a-decoration, .no-a-decoration:hover {
     text-decoration: none;
     color: inherit;
 }
 
-/*Radio Button Group*/
+
 .e-btn-group.custom-rbt-group {
     width: 100%;
 }
@@ -70,4 +70,43 @@ body {
     background-color: #fff;
     color: #000000;
     border: 3px solid #b0b0b0;
+}
+
+.e-grid {
+    border: 0;
+    border-radius: 5px;
+}
+
+.e-grid .e-gridcontent, .e-grid .e-table {
+    background-color: #1a222b;
+}
+
+.e-grid .e-gridheader {
+    border: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 10px;
+    background-color: #222b33;
+}
+
+.e-grid .e-gridheader .e-headercell {
+    background-color: #222b33;
+}
+
+.e-grid .e-gridpager {
+    background-color: #1a222b;
+}
+
+.e-grid .e-pagercontainer {
+    border: none;
+    background-color: #1a222b;
+}
+
+.e-grid .e-content table {
+    padding: 0px 10px;
+}
+
+.e-pagercontainer .e-icons {
+    background-color: #1a222b;
+    border: none !important;
 }
