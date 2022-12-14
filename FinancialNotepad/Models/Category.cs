@@ -17,4 +17,6 @@ public class Category
 
     [Column(TypeName = "nvarchar(10)")]
     public string Type { get; set; } = "Expense";
+
+    public List<Transaction> Transactions { get; set; }
 }

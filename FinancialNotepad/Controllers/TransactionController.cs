@@ -22,13 +22,35 @@ namespace FinancialNotepad.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Transaction/Create
-        public IActionResult Create(int id = 0)
+        // GET: Transaction/AddOrEdit
+        public IActionResult AddOrEdit(int id = 0)
         {
-            return View(_context.Transactions.Find(id));
+            FillCategories();
+            if (id == 0)
+                return View(new Transaction());
+            else
+                return View(_context.Transactions.Find(id));
         }
 
-
+        // POST: Transaction/AddOrEdit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrEdit
+                ([Bind("TransactionId,CategoryId,Amount,Note,Date")] 
+                Transaction transaction)
+        {
+            if (ModelState.IsValid)
+            {
+                if (transaction.TransactionId == 0)
+                    _context.Add(transaction);
+                else
+                    _context.Update(transaction);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            FillCategories();
+            return View(transaction);
+        }
 
         // POST: Transaction/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -46,6 +68,14 @@ namespace FinancialNotepad.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [NonAction]
+        public void FillCategories()
+        {
+            var CategoryCollection = _context.Categories.ToList();
+            Category DefaultCategory = new Category() { CategoryId = 0, Title = "Choose a Category" };
+            CategoryCollection.Insert(0, DefaultCategory);
+            ViewBag.Categories = CategoryCollection;
+        }
 
     }
 }

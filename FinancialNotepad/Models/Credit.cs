@@ -25,4 +25,6 @@ public class Credit
     public int Period { get; set; }
 
     public double LeftToPay { get; set; }
+
+    public int UserId { get; set; }
 }
