@@ -25,8 +25,7 @@ public class Transaction
 
     [Range(1,int.MaxValue,ErrorMessage ="Please select currency")]
     public int CurrencyId { get; set; }
-    public Tax Currency { get; set; }
-
+    public Currency Currency { get; set; }
 
 
 }
