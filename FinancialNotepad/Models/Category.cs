@@ -13,10 +13,26 @@ public class Category
     public string Title { get; set; }
 
     [Column(TypeName = "nvarchar(20)")]
-    public string Icon { get; set; } = "";
+    public string? Icon { get; set; } = "";
 
     [Column(TypeName = "nvarchar(10)")]
     public string Type { get; set; } = "Expense";
 
     public List<Transaction> Transactions { get; set; }
+
+    [NotMapped]
+    public string? TitleAndIcon
+    {
+        get
+        {
+            if (Icon == null || Icon == "")
+            {
+                return Title;
+            }
+            else
+            {
+                return Icon + " " + Title;
+            }
+        }
+    }
 }

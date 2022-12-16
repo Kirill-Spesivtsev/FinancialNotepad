@@ -40,8 +40,8 @@ namespace FinancialNotepad.Controllers
         public async Task<IActionResult> AddOrEdit([Bind("CategoryId,Title,Icon,Type")] Category category)
         {
             ModelState.Clear();
-            //TryValidateModel(category);
-            //ModelState.ClearValidationState(nameof(Movie));
+            TryValidateModel(category);
+            //ModelState.ClearValidationState(nameof(category));
             if (ModelState.IsValid)
             {
                 if (category.CategoryId == 0)
