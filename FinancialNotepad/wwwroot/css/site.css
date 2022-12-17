@@ -15,8 +15,7 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
-    background-color: #fff;
+    background: -webkit-linear-gradient(-45deg, rgb(84, 126, 254) 0px, rgb(132, 213, 255) 100%);
     color: #000;
     overflow: hidden;
 }
@@ -29,6 +28,10 @@ body {
     margin-left: 290px;
     overflow-y: auto;
     height: 92vh;
+}
+
+.action-btn-white {
+    color: white !important
 }
 
 .btn:focus, .btn:active {
@@ -98,10 +101,16 @@ nav.navbar {
 }
 
 
-.e-breadcrumb a, .e-breadcrumb a:hover {
+.e-breadcrumb {
     text-decoration: none !important;
-    color: inherit !important;
+    color: #000000 !important;
 }
+
+.e-breadcrumb-icon {
+    color: #000000 !important;
+}
+
+
 
 
 .btn:focus, .btn:active {
@@ -143,7 +152,7 @@ nav.navbar {
 }
 
     .e-grid .e-gridcontent, .e-grid .e-table {
-        background-color: #f9f9f9;
+        background-color: #ffffff;
     }
 
     .e-grid .e-gridheader {
@@ -151,15 +160,15 @@ nav.navbar {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         padding: 10px;
-        background-color: #fafafa;
+        background-color: #ffffff;
     }
 
     .e-grid .e-gridheader .e-headercell {
-        background-color: #d9d9d9;
+        background-color: #f9f9f9;
     }
 
     .e-grid .e-gridpager {
-        background-color: #fafafa;
+        background-color: #ffffff;
     }
 
     .e-grid .e-pagercontainer {
@@ -213,12 +222,14 @@ nav.navbar {
 }
 
 
+.main-app-body {
 
+}
 
 
 .widget {
     border-radius: 1rem;
-    background-color: #f9f9f9;
+    background-color: #fff;
 }
 
     .widget.summary > div:first-child {

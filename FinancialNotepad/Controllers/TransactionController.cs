@@ -18,7 +18,11 @@ namespace FinancialNotepad.Controllers
          // GET: Transaction
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Transactions.Include(t => t.Category);
+            var applicationDbContext = 
+                _context.Transactions
+                    .Include(t => t.Category)
+                    .Include(t => t.Currency)
+                    .Include(t => t.Tax);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,9 +40,11 @@ namespace FinancialNotepad.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEdit
-                ([Bind("TransactionId,CategoryId,Amount,Note,Date")] 
+                ([Bind("TransactionId,CategoryId,CurrencyId,TaxId,Amount,Note,Date")] 
                 Transaction transaction)
         {
+            ModelState.Clear();
+            TryValidateModel(transaction);
             if (ModelState.IsValid)
             {
                 if (transaction.TransactionId == 0)

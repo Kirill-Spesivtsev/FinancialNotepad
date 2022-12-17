@@ -4,31 +4,31 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>List</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="AddorEdit">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrencyId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TaxId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Note)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
             </th>
             <th></th>
         </tr>
@@ -37,22 +37,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrencyId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaxId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tax.TaxId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |
