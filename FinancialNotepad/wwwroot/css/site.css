@@ -157,18 +157,18 @@ nav.navbar {
 
     .e-grid .e-gridheader {
         border: 5px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         padding: 10px;
         background-color: #ffffff;
     }
 
-    .e-grid .e-gridheader .e-headercell {
-        background-color: #f9f9f9;
-    }
+
 
     .e-grid .e-gridpager {
         background-color: #ffffff;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     .e-grid .e-pagercontainer {
@@ -185,8 +185,26 @@ nav.navbar {
         border: none !important;
     }
 
-    
 
+.e-grid .e-groupcaption,
+.e-grid .e-indentcell,
+.e-grid .e-recordplusexpand,
+.e-grid .e-recordpluscollapse {
+    background: rgba(112, 180, 255, 30);
+}
+
+.e-grid .e-groupcaption {
+    background: -webkit-linear-gradient(-45deg, rgba(112, 180, 255, 30) 0px, rgba(132, 213, 255, 30) 100%);
+}
+/*
+.e-groupcaption {
+    background: -webkit-linear-gradient(-45deg, rgb(84, 126, 254) 0px, rgb(132, 213, 255) 100%) !important;
+}
+
+.e-indentcell {
+    background-color: #ffffff;
+}
+*/
 .e-grid .e-pagercontainer {
     color: #deecf9;
 }

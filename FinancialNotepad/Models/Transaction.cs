@@ -51,7 +51,7 @@ public class Transaction
     {
         get
         {
-            return (Type == "Expense" ? "- " : "+ ") + Amount.ToString("C0");
+            return (Type == "Expense" ? "- " : "+ ") + Amount.ToString("F") + " " + Currency?.Symbol;
         }
     }
 

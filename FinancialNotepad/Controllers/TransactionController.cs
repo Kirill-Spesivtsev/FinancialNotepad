@@ -25,7 +25,7 @@ namespace FinancialNotepad.Controllers
                     .Include(t => t.Category)
                     .Include(t => t.Currency)
                     .Include(t => t.Tax);
-            return View(list.ToList());
+            return View(list.OrderBy(t => t.Date).ToList());
         }
 
         // GET: Transaction/AddOrEdit

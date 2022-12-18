@@ -5,21 +5,39 @@
     ViewData["PageActionText"] = "New Transaction";
     ViewData["PageActionUrl"] = "/Transaction/AddOrEdit";
 }
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex flex-column">
+            <div class="d-flex mb-1">
+                <div class="flex-grow-1">
+                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                </div>
+                <div>
+                    <a class="btn btn-success action-btn-white" href="@ViewData["PageActionUrl"]">
+                        @ViewData["PageActionText"]
+                    </a>
+                </div>
+            </div>
+                                        
+        </div>
+    </div>
+</div>
 
 <div class="row form-row">
-    <div class="col-md-10">
-        <ejs-grid id="transactions" dataSource="@Model" 
-                  allowSorting="true" allowPaging="true" allowSelection="true">
-            <e-grid-pagesettings pageSize="20" ></e-grid-pagesettings>
+    <div class="col-md-12">
+        <ejs-grid id="transactions" dataSource="@Model" allowSorting="true" allowFiltering="true" allowExcelExport="true" 
+                   allowPaging="true" allowSelection="true" allowGrouping="true" allowTextWrap="true" allowMultiSorting="true">
+            <e-grid-groupsettings  showDropArea="false" showGroupedColumn="true" columns="@(new string[] { "Date"})"></e-grid-groupsettings>
+            <e-grid-filtersettings mode="Immediate" showFilterBarOperator="true" type="Excel" showFilterBarStatus="true"></e-grid-filtersettings>
+            <e-grid-pagesettings pageSize="20"></e-grid-pagesettings>
             <e-grid-columns>
-                <e-grid-column headerText="Date" field="Date" width="80px"
-                               type="date" format="MMM-dd-yy" textAlign="Left"></e-grid-column>
-                <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Right" width="60px"></e-grid-column>
-                <e-grid-column headerText="Currency" field="Currency.Name" textAlign="Right" width="100px"></e-grid-column>
-                <e-grid-column headerText="Type" template="#typeColumnTemplate" width="50px"></e-grid-column>
-                <e-grid-column headerText="Category" field="CategoryTitleAndIcon" width="120px"></e-grid-column>
-                <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="50px"></e-grid-column>
+                <e-grid-column headerText="Date" field="Date" width="120px"
+                               type="date" format="dd.MM.yyyy" textAlign="Center"></e-grid-column>
+                <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Center" width="140px"></e-grid-column>
+                <e-grid-column headerText="Currency" field="Currency.Name" textAlign="Center" width="140px"></e-grid-column>
+                <e-grid-column headerText="Type" template="#typeColumnTemplate" textAlign="Center" width="100px"></e-grid-column>
+                <e-grid-column headerText="Category" field="CategoryTitleAndIcon" textAlign="Center" width="200px"></e-grid-column>
+                <e-grid-column headerText="Actions" template="#actionColumnTemplate" textAlign="Center" width="80px"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
