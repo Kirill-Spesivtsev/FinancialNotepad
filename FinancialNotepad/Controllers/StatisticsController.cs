@@ -54,6 +54,17 @@ namespace FinancialNotepad.Controllers
                 .OrderByDescending(l => l.amount)
                 .ToList();
 
+            string[] LastWeekData = Enumerable.Range(0, 7)
+                .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
+                .ToArray();
+
+
+            ViewBag.RecentTransactions = await _context.Transactions
+                .Include(i => i.Category)
+                .OrderByDescending(j => j.Date)
+                .Take(5)
+                .ToListAsync();
+
 
             return View();
         }

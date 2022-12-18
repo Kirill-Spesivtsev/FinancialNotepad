@@ -1,15 +1,35 @@
 ﻿@{
-    ViewData["Title"] = "Statistics";
+    ViewData["StatsBlock"] = true;
 }
 
-<h2>Statistics</h2>
+<div class="@(ViewData["isDashboard"] == null?"col-md-10":"col-md-12")">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="d-flex flex-column">
+                <div class="d-flex mb-1">
+                    <div class="flex-grow-1">
+                        <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                    </div>
+                    <div>
+                        <a class="btn btn-success action-btn-white" href="@ViewData["PageActionUrl"]">
+                            @ViewData["PageActionText"]
+                        </a>
+                    </div>
+                </div>
+                                            
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row mb-4">
-
     <div class="col-md-4">
         <div class="d-flex flex-row widget summary income">
-            <i class="fa-solid fa-dollar-sign fa-2xl"></i>
-                <div class="d-flex flex-column m-auto py-3">
+            <div class="d-flex flex-column justify-content-center p-5">
+                <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+            </div>
+            <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Total Income</span>
                 <h1 class="display-6 fw-bold">@ViewBag.TotalIncome</h1>
             </div>
@@ -18,20 +38,49 @@
 
     <div class="col-md-4">
         <div class="d-flex flex-row widget summary expense">
+            <div class="d-flex flex-column justify-content-center p-5">
+                <i class="fa-solid fa-dollar-sign fa-2xl"></i>
+            </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Total Expense</span>
-                <h1 class="display-6">@ViewBag.TotalExpense</h1>
+                <h1 class="display-6 fw-bold">@ViewBag.TotalExpense</h1>
             </div>
         </div>
     </div>
 
     <div class="col-md-4">
+        <div class="d-flex flex-row widget summary balance">
             <div class="d-flex flex-column justify-content-center p-5">
-                <i class="fa-solid"></i>
+                <i class="fa-solid fa-dollar-sign fa-2xl"></i>
             </div>
             <div class="d-flex flex-column m-auto py-3">
                 <span class="lead">Balance</span>
                 <h1 class="display-6 fw-bold">@ViewBag.Balance</h1>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="widget">
+            <div class="px-4 pb-4">
+                <ejs-grid id="recent-transactions"
+                dataSource="@ViewBag.RecentTransactions">
+                    <e-grid-columns>
+                        <e-grid-column headerText="Date" field="Date" type="date" format="dd-mm-yyyy"></e-grid-column>
+                        <e-grid-column headerText="Category" field="CategoryTitleAndIcon"></e-grid-column>
+                        <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Right"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="widget h-100">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <span><i class="fa-solid fa-2xl"></i> Widget</span>
+            </div>
+        </div>
+    </div>
 </div>
