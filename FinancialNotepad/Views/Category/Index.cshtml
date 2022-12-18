@@ -6,6 +6,26 @@
     ViewData["PageActionUrl"] = "/Category/AddOrEdit";
 }
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex flex-column">
+            <div class="d-flex mb-1">
+                <div class="flex-grow-1">
+                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                </div>
+                <div>
+                    @if (ViewData["PageActionText"] != null)
+                    {
+                        <a class="btn btn-success action-btn-white" href="@ViewData["PageActionUrl"]">
+                            @ViewData["PageActionText"]
+                        </a>
+                    }
+                </div>
+            </div>
+                                        
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-12 justify-content-center">
@@ -13,20 +33,13 @@
             <e-grid-pagesettings pageSize="20"></e-grid-pagesettings>
             <e-grid-columns>
                 <e-grid-column headerText="Category" field="TitleAndIcon"></e-grid-column>
-                <e-grid-column headerText="Type" template="#typeColumnTemplate" width="150px"></e-grid-column>
                 <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="100px"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
     </div>
 </div>
 
-<script id="typeColumnTemplate" type="text/x-template">
-    ${if(Type=="Income")}
-        <span class="badge bg-success">${Type}</span>
-    ${else}
-        <span class="badge bg-danger">${Type}</span>
-    ${/if}
-</script>
+
 
 <script id="actionColumnTemplate" type="text/x-template">
     <div class="d-flex flex-row justify-content-start edit-block">

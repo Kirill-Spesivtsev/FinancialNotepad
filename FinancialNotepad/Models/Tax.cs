@@ -11,6 +11,6 @@ public class Tax
 
     public double Percent { get; set; }
 
-    public int Description { get; set; }
+    public string Description { get; set; }
 
 }

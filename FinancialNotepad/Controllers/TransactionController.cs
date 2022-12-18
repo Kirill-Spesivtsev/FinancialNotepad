@@ -9,29 +9,32 @@ namespace FinancialNotepad.Controllers
     public class TransactionController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
 
-        public TransactionController(ApplicationDbContext context)
+        public TransactionController(ApplicationDbContext context, ILogger<TransactionController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
          // GET: Transaction
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = 
+            var list = 
                 _context.Transactions
                     .Include(t => t.Category)
                     .Include(t => t.Currency)
                     .Include(t => t.Tax);
-            return View(await applicationDbContext.ToListAsync());
+            return View(list.ToList());
         }
 
         // GET: Transaction/AddOrEdit
         public IActionResult AddOrEdit(int id = 0)
         {
-            FillCategories();
+            
+            FillSelects();
             if (id == 0)
-                return View(new Transaction());
+                return View(new Transaction{TransactionId = 0});
             else
                 return View(_context.Transactions.Find(id));
         }
@@ -40,21 +43,25 @@ namespace FinancialNotepad.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEdit
-                ([Bind("TransactionId,CategoryId,CurrencyId,TaxId,Amount,Note,Date")] 
+                ([Bind("TransactionId,CategoryId,CurrencyId,TaxId,Amount,Note,Date,Type")] 
                 Transaction transaction)
         {
             ModelState.Clear();
-            TryValidateModel(transaction);
+            //ModelState.Remove("CategoryTitleAndIcon");
+            
+            
             if (ModelState.IsValid)
             {
                 if (transaction.TransactionId == 0)
                     _context.Add(transaction);
                 else
                     _context.Update(transaction);
+
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            FillCategories();
+            FillSelects();
             return View(transaction);
         }
 
@@ -75,12 +82,16 @@ namespace FinancialNotepad.Controllers
         }
 
         [NonAction]
-        public void FillCategories()
+        public void FillSelects()
         {
-            var CategoryCollection = _context.Categories.ToList();
+            var taxes = _context.Taxes.ToList();
+            ViewBag.Taxes = taxes; 
+            var currencies = _context.Currencies.ToList();
+            ViewBag.Currencies = currencies; 
+            var categories = _context.Categories.ToList();
             Category DefaultCategory = new Category() { CategoryId = 0, Title = "Choose a Category" };
-            CategoryCollection.Insert(0, DefaultCategory);
-            ViewBag.Categories = CategoryCollection;
+            categories.Insert(0, DefaultCategory);
+            ViewBag.Categories = categories;
         }
 
     }

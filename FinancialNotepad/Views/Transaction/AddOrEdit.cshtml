@@ -1,49 +1,75 @@
 ﻿@model FinancialNotepad.Models.Transaction
 
 @{
-    ViewData["Title"] = "AddOrEdit";
+    ViewData["PageTitle"] = Model.TransactionId == 0 ? "Create a new transaction" : "Edit transaction";
 }
 
-<h1>AddOrEdit</h1>
 
-<h4>Transaction</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AddOrEdit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TaxId" class="control-label"></label>
-                <select asp-for="TaxId" class ="form-control" asp-items="ViewBag.TaxId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrencyId" class="control-label"></label>
-                <select asp-for="CurrencyId" class ="form-control" asp-items="ViewBag.CurrencyId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+<div class="row form-row">
+    <div class="col-md-8">
+        <div class="widget p-5" style="background-color: #ffffff">
+            <form asp-action="AddOrEdit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <div class="e-btn-group custom-rbt-group">
+                        <input type="radio" id="radioleft" name="Type" value="Expense" checked="@(Model.Type == "Expense")"/>
+                        <label class="e-btn" for="radioleft">Expense</label>
+                        <input type="radio" id="radioright" name="Type" value="Income" checked="@(Model.Type == "Income")"/>
+                        <label class="e-btn" for="radioright">Income</label>
+                    </div>
+                </div>
+                <input type="hidden" name="TransactionId" value="@Model.TransactionId"/>
+                <div class="mb-3">
+                    <ejs-datepicker id="date" ejs-for="Date"
+                                    placeholder="Date" floatLabelType="Always"
+                                    format="MMM-dd-yy"></ejs-datepicker>
+                </div>
+                <div class="mb-3">
+                    <ejs-numerictextbox id="amount" ejs-for="Amount"
+                                        placeholder="Amount" floatLabelType="Always"
+                                        min=0 step="1" decimals="2" format="n2"></ejs-numerictextbox>
+                    <span asp-validation-for="Amount" class="text-danger fs-6"></span>
+                </div>
+                <div class="mb-3">
+                    <ejs-textbox id="note" placeholder="Note" ejs-for="Note"
+                                 floatLabelType="Always" multiline="true"></ejs-textbox>
+                </div>
+                <div class="mb-3">
+                    <ejs-dropdownlist id="ddlCategory" ejs-for="CategoryId" 
+                                      dataSource="@ViewBag.Categories" placeholder="Category"
+                                      floatLabelType="Always" allowFiltering="true" ignoreAccent="true"
+                                      filterType="Contains" popupHeight="220px">
+                        <e-dropdownlist-fields value="CategoryId" text="TitleAndIcon"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="CategoryId" class="text-danger fs-6"></span>
+                </div>
+
+                <div class="mb-3">
+                    <ejs-dropdownlist id="ddlCurrency" ejs-for="CurrencyId"
+                                      dataSource="@ViewBag.Currencies" placeholder="Currency"
+                                      floatLabelType="Always" allowFiltering="true" ignoreAccent="true"
+                                      filterType="Contains" popupHeight="220px">
+                        <e-dropdownlist-fields value="CurrencyId" text="Name"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="TaxId" class="text-danger fs-6"></span>
+                </div>
+
+                <div class="mb-3">
+                    <ejs-dropdownlist id="ddlTax" ejs-for="TaxId" 
+                                      dataSource="@ViewBag.Taxes" placeholder="Tax"
+                                      floatLabelType="Always" allowFiltering="true" ignoreAccent="true"
+                                      filterType="Contains" popupHeight="220px">
+                        <e-dropdownlist-fields value="TaxId" text="Title"></e-dropdownlist-fields>
+                    </ejs-dropdownlist>
+                    <span asp-validation-for="TaxId" class="text-danger fs-6"></span>
+                </div>
+
+                <ejs-button id="submit" type="submit" content="Submit" cssClass="e-success"></ejs-button>
+            </form>
+        </div>
     </div>
+
 </div>
 
 <div>

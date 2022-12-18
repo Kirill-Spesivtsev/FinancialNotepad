@@ -1,65 +1,54 @@
 ﻿@model IEnumerable<FinancialNotepad.Models.Transaction>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["PageTitle"] = "Transactions";
+    ViewData["PageActionText"] = "New Transaction";
+    ViewData["PageActionUrl"] = "/Transaction/AddOrEdit";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="AddorEdit">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tax.TaxId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TransactionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TransactionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TransactionId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row form-row">
+    <div class="col-md-10">
+        <ejs-grid id="transactions" dataSource="@Model" 
+                  allowSorting="true" allowPaging="true" allowSelection="true">
+            <e-grid-pagesettings pageSize="20" ></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column headerText="Date" field="Date" width="80px"
+                               type="date" format="MMM-dd-yy" textAlign="Left"></e-grid-column>
+                <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Right" width="60px"></e-grid-column>
+                <e-grid-column headerText="Currency" field="Currency.Name" textAlign="Right" width="100px"></e-grid-column>
+                <e-grid-column headerText="Type" template="#typeColumnTemplate" width="50px"></e-grid-column>
+                <e-grid-column headerText="Category" field="CategoryTitleAndIcon" width="120px"></e-grid-column>
+                <e-grid-column headerText="Actions" template="#actionColumnTemplate" width="50px"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+
+<script id="typeColumnTemplate" type="text/x-template">
+    ${if(Type=="Income")}
+        <span class="badge bg-success">${Type}</span>
+    ${else}
+        <span class="badge bg-danger">${Type}</span>
+    ${/if}
+</script>
+
+<script id="actionColumnTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start edit-block">
+        <a class="btn btn-sm no-a-decoration" href="/Transaction/AddOrEdit/${TransactionId}">
+            <i class="fa-solid fa-pen fa-lg"></i>
+        </a>
+        <form action="/Transaction/Delete/${TransactionId}" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-sm btn-link no-a-decoration"
+            onclick="return confirm(&quot;Are sure to delete this record?&quot;)">
+                <i class="fa-solid fa-trash-can fa-lg"></i>
+            </button>
+        </form>
+    </div>
+</script>
+
+<!--
+<e-grid-column headerText="Type" template="#typeColumnTemplate" width="150px"></e-grid-column>
+-->

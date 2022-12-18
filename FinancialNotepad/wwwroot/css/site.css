@@ -17,7 +17,7 @@ html {
 body {
     background: -webkit-linear-gradient(-45deg, rgb(84, 126, 254) 0px, rgb(132, 213, 255) 100%);
     color: #000;
-    overflow: hidden;
+    
 }
 
 .e-bigger {
@@ -222,8 +222,8 @@ nav.navbar {
 }
 
 
-.main-app-body {
-
+.form-row {
+    justify-content: center
 }
 
 

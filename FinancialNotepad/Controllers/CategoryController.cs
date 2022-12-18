@@ -9,10 +9,12 @@ namespace FinancialNotepad.Controllers
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger _logger;
 
-        public CategoryController(ApplicationDbContext context)
+        public CategoryController(ApplicationDbContext context, ILogger<CategoryController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: Category
@@ -37,10 +39,10 @@ namespace FinancialNotepad.Controllers
         // POST: Category/AddOrEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("CategoryId,Title,Icon,Type")] Category category)
+        public async Task<IActionResult> AddOrEdit([Bind("CategoryId,Title,Icon")] Category category)
         {
             ModelState.Clear();
-            TryValidateModel(category);
+            //TryValidateModel(category);
             //ModelState.ClearValidationState(nameof(category));
             if (ModelState.IsValid)
             {
@@ -48,7 +50,7 @@ namespace FinancialNotepad.Controllers
                     _context.Add(category);
                 else
                     _context.Update(category);
-                ModelState.AddModelError("", "1234");
+ 
                 await _context.SaveChangesAsync();
                 
                 return RedirectToAction(nameof(Index));
