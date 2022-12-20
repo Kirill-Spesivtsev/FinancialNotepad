@@ -15,6 +15,9 @@ public class Credit
     public string Status { get; set; } = "Active";
 
     [Required]
+    public string Type { get; set; } = "Credit";
+
+    [Required]
     [Column(TypeName = "nvarchar(10)")]
     public double TotalSum { get; set; }
 

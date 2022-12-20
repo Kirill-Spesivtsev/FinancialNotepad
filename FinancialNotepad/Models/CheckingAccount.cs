@@ -8,7 +8,7 @@ public class CheckingAccount
     public int CheckingAccountId { get; set; }
 
     [Required]
-    public long BankAccount { get; set; }
+    public string BankAccount { get; set; }
 
     public string OwnerName { get; set; }
 
