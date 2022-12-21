@@ -23,6 +23,35 @@
 </div>
 
 
+<div class="row mb-3">
+    <div class="col-md-4">
+        <h4>Income</h4>
+        <div class="d-flex flex-row widget summary income">
+            <div class="d-flex flex-column m-auto py-3">
+
+                <h3 class="fw-bold">+ @ViewBag.TotalIncome</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Expense</h4>
+        <div class="d-flex flex-row widget summary expense">
+            <div class="d-flex flex-column m-auto py-3">
+                <h3 class="fw-bold">- @ViewBag.TotalExpense</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h4>Profit</h4>
+        <div class="d-flex flex-row widget summary balance">
+            <div class="d-flex flex-column m-auto py-3">
+                <h3 class="fw-bold">= @ViewBag.Balance</h3>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="row mb-4">

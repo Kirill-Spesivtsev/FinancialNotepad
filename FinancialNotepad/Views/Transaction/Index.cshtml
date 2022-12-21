@@ -45,8 +45,9 @@
 
 <div class="row form-row">
     <div class="col-md-12">
-        <ejs-grid id="transactions" dataSource="@Model" allowSorting="true" allowFiltering="true" allowExcelExport="true" 
-                   allowPaging="true" allowSelection="true" allowGrouping="true" allowTextWrap="true" allowMultiSorting="true">
+        <ejs-grid id="transactions_grid" dataSource="@Model" allowSorting="true" allowFiltering="true" 
+                  allowPaging="true" allowSelection="true" toolbarClick="toolbarClick" allowExcelExport="true" 
+                  toolbar="@(new List<string>() { "ExcelExport" })" allowGrouping="true" allowTextWrap="true" allowMultiSorting="true">
             <e-grid-groupsettings  showDropArea="false" showGroupedColumn="true" columns="@(new string[] { "Date"})"></e-grid-groupsettings>
             <e-grid-filtersettings mode="Immediate" showFilterBarOperator="true" type="Excel" showFilterBarStatus="true"></e-grid-filtersettings>
             <e-grid-pagesettings pageSize="20"></e-grid-pagesettings>
@@ -63,6 +64,14 @@
     </div>
 </div>
 
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("transactions_grid").ej2_instances[0];
+        if (args.item.id === 'Grid_excelexport') {
+            gridObj.excelExport();
+        }
+    }
+</script>
 
 <script id="typeColumnTemplate" type="text/x-template">
     ${if(Type=="Income")}
