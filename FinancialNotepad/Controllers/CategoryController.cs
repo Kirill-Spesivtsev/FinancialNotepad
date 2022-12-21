@@ -69,10 +69,14 @@ namespace FinancialNotepad.Controllers
             {
                 return Problem("No Items in Categories");
             }
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            if (id != 1)
+            {
+                var category = await _context.Categories.FindAsync(id);
+                _context.Categories.Remove(category);
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
+            
             return RedirectToAction(nameof(Index));
         }
     }

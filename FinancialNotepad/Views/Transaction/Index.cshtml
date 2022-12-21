@@ -1,24 +1,44 @@
 ﻿@model IEnumerable<FinancialNotepad.Models.Transaction>
 
 @{
-    ViewData["PageTitle"] = "Transactions";
-    ViewData["PageActionText"] = "New Transaction";
-    ViewData["PageActionUrl"] = "/Transaction/AddOrEdit";
+    ViewBag.Balance = "100$";
 }
-<div class="row">
-    <div class="col-md-12">
-        <div class="d-flex flex-column">
-            <div class="d-flex mb-1">
-                <div class="flex-grow-1">
-                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
-                </div>
-                <div>
-                    <a class="btn btn-success action-btn-white" href="@ViewData["PageActionUrl"]">
-                        @ViewData["PageActionText"]
-                    </a>
-                </div>
+
+<div class="row mb-3">
+    <div class="col-md-3">
+        <h4>Income</h4>
+        <div class="d-flex flex-row widget summary income">
+            <div class="d-flex flex-column m-auto py-3">
+
+                <h3 class="fw-bold">+ @ViewBag.TotalIncome</h3>
             </div>
-                                        
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <h4>Expense</h4>
+        <div class="d-flex flex-row widget summary expense">
+            <div class="d-flex flex-column m-auto py-3">
+                <h3 class="fw-bold">- @ViewBag.TotalExpense</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <h4>Profit</h4>
+        <div class="d-flex flex-row widget summary balance">
+            <div class="d-flex flex-column m-auto py-3">
+                <h3 class="fw-bold">= @ViewBag.Balance</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            <div style="margin-left: 50px;margin-top:60px">
+                <a class="btn btn-secondary action-btn-white" href="/Transaction/AddOrEdit">
+                    New Transaction
+                </a>
+            </div>
         </div>
     </div>
 </div>

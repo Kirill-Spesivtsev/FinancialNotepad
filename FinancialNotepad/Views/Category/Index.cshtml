@@ -1,25 +1,17 @@
 ﻿@model IEnumerable<FinancialNotepad.Models.Category>
 
-@{
-    ViewData["PageTitle"] = "Categories";
-    ViewData["PageActionText"] = "Add Category";
-    ViewData["PageActionUrl"] = "/Category/AddOrEdit";
-}
 
 <div class="row">
     <div class="col-md-12">
         <div class="d-flex flex-column">
             <div class="d-flex mb-1">
                 <div class="flex-grow-1">
-                    <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
+                    <h3 class="fw-bold">"Categories"</h3>
                 </div>
                 <div>
-                    @if (ViewData["PageActionText"] != null)
-                    {
-                        <a class="btn btn-success action-btn-white" href="@ViewData["PageActionUrl"]">
-                            @ViewData["PageActionText"]
-                        </a>
-                    }
+                    <a class="btn btn-secondary action-btn-white" href="/Category/AddOrEdit">
+                        Add Category
+                    </a>
                 </div>
             </div>
                                         

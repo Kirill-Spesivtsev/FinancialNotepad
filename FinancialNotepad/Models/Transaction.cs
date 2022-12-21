@@ -20,13 +20,15 @@ public class Transaction
     public DateTime Date { get; set; } = DateTime.Now;
 
 
-    [Range(1,int.MaxValue,ErrorMessage ="Please select a category")]
+    [Range(1,int.MaxValue,ErrorMessage ="Please select Category")]
     public int CategoryId { get; set; }
     public Category? Category { get; set; }
+
+    [Range(1,int.MaxValue,ErrorMessage ="Please select Tax")]
     public int TaxId { get; set; } = 0;
     public Tax? Tax { get; set; }
 
-    [Range(1,int.MaxValue,ErrorMessage ="Please select currency")]
+    [Range(1,int.MaxValue,ErrorMessage ="Please select Currency")]
     public int CurrencyId { get; set; }
     public Currency Currency { get; set; }
 
@@ -51,7 +53,8 @@ public class Transaction
     {
         get
         {
-            return (Type == "Expense" ? "- " : "+ ") + Amount.ToString("F") + " " + Currency?.Symbol;
+            return (Type == "Expense" ? "- " : "+ ") 
+                   + Amount.ToString("F") + " " + Currency?.Symbol;
         }
     }
 

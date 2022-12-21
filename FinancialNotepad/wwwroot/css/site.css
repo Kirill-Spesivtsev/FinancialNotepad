@@ -115,18 +115,25 @@ nav.navbar {
 }
 
 
-
+.list-add-button {
+    background-color: #999999;
+}
 
 .btn:focus, .btn:active {
     outline: none !important;
     box-shadow: none;
 }
 
+.centered-content {
+    justify-content: center; 
+    display: flex;
+}
 
 .no-a-decoration, .no-a-decoration:hover {
     text-decoration: none;
     color: inherit;
 }
+
 
 
 .e-btn-group.custom-rbt-group {

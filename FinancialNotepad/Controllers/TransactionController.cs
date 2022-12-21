@@ -1,4 +1,5 @@
-﻿using FinancialNotepad.Data;
+﻿using System.Globalization;
+using FinancialNotepad.Data;
 using FinancialNotepad.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,23 @@ namespace FinancialNotepad.Controllers
                     .Include(t => t.Category)
                     .Include(t => t.Currency)
                     .Include(t => t.Tax);
+
+            List<Transaction> SelectedTransactions = await _context.Transactions
+                .Include(x => x.Category)
+                .ToListAsync();
+
+            double totalIncome = SelectedTransactions
+                .Where(i => i.Type == "Income")
+                .Sum(j => j.Amount);
+            ViewBag.TotalIncome = totalIncome.ToString("F") + " $";
+
+            double totalExpense = SelectedTransactions
+                .Where(i => i.Type == "Expense")
+                .Sum(j => j.Amount);
+            ViewBag.TotalExpense = totalExpense.ToString("F") + " $";
+
+            var profit = (totalIncome - totalExpense).ToString() + " $";
+
             return View(list.OrderBy(t => t.Date).ToList());
         }
 

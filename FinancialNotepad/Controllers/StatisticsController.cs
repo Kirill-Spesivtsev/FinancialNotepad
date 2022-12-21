@@ -75,12 +75,12 @@ namespace FinancialNotepad.Controllers
                 })
                 .ToList();
 
-            string[] LastWeekData = Enumerable.Range(0, 7)
+            string[] LastData = Enumerable.Range(0, 30)
                 .Select(i => StartDate.AddDays(i).ToString("dd-MM-yyyy"))
                 .ToArray();
 
             ViewBag.SplineChartData = 
-                    from day in LastWeekData
+                    from day in LastData
                     join income in incomeStatistics on day equals income.day into dayIncomeJoined
                     from income in dayIncomeJoined.DefaultIfEmpty()
                     join expense in expenseStatistics on day equals expense.day into expenseJoined
