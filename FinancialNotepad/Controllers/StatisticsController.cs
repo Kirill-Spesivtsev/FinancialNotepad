@@ -40,7 +40,7 @@ namespace FinancialNotepad.Controllers
             var profit = totalIncome - totalExpense;
             CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             culture.NumberFormat.CurrencyNegativePattern = 1;
-            ViewBag.Balance = String.Format(culture, "{0:F}", profit);
+            ViewBag.Profit = String.Format(culture, "{0:F}", profit);
 
             ViewBag.DoughnutChartData = SelectedTransactions
                 .Where(i => i.Type == "Expense")

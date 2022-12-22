@@ -20,6 +20,31 @@ body {
     
 }
 
+.e-appointment-details .e-time {
+    display: none;
+}
+
+.e-schedule .e-month-view .e-work-cells {
+    position: relative;
+}
+
+.e-schedule .templatewrap {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+}
+
+.e-schedule .templatewrap img {
+    width: 25px;
+    height: 25px;
+}
+
+.e-schedule .caption {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
 .e-bigger {
     font-size: x-large;
 }
@@ -157,6 +182,10 @@ nav.navbar {
     border: 3px solid #b0b0b0;
 }
 
+.btn-group .btn > input {
+    display: none !important;
+}
+
 .e-grid {
     border: 0;
     border-radius: 5px;
@@ -197,12 +226,14 @@ nav.navbar {
     }
 
 
-.e-grid .e-groupcaption,
-.e-grid .e-indentcell,
-.e-grid .e-recordplusexpand,
-.e-grid .e-recordpluscollapse {
-    background: rgba(112, 180, 255, 30);
-}
+    .e-grid .e-toolbar {
+        background-color: #ffffff;
+        border-width: 0px;
+    }
+
+    .e-toolbar-items {
+        background-color: #ffffff !important;
+    }
 
 .e-grid .e-groupcaption {
     background: -webkit-linear-gradient(-45deg, rgba(112, 180, 255, 30) 0px, rgba(132, 213, 255, 30) 100%);
@@ -262,7 +293,7 @@ nav.navbar {
 }
 
     .widget.summary > div:first-child {
-        background-color: #fff;
+        /* background-color: #fff; */
         padding: 1rem;
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;

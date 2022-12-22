@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-md-12 justify-content-center">
-        <ejs-grid id="categories" dataSource="@Model" allowSorting="true" allowPaging="true">
+        <ejs-grid id="categories_grid" dataSource="@Model" allowSorting="true" allowPaging="true">
             <e-grid-pagesettings pageSize="20"></e-grid-pagesettings>
             <e-grid-columns>
                 <e-grid-column headerText="Category" field="TitleAndIcon"></e-grid-column>
@@ -46,4 +46,34 @@
             </button>
         </form>
     </div>
+</script>
+
+
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("categories_grid").ej2_instances[0];
+        if (args.item.id === 'categories_grid_pdfexport') {
+            gridObj.showSpinner();
+            gridObj.pdfExport();
+        }
+        else if (args.item.id === 'categories_grid_excelexport') {
+            gridObj.showSpinner();
+            gridObj.excelExport();
+        }
+    }
+
+    function pdfExportComplete(args) {
+        this.hideSpinner();
+    }
+    
+    function excelExportComplete(args) {
+        this.hideSpinner();
+    }
+</script>
+
+<script>
+    function grid_created() {
+        var toolbar = this.element.querySelector('.e-toolbar');
+        this.element.appendChild(toolbar);
+    }
 </script>

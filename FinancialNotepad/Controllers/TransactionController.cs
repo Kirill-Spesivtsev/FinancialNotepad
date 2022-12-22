@@ -41,7 +41,13 @@ namespace FinancialNotepad.Controllers
                 .Sum(j => j.Amount);
             ViewBag.TotalExpense = totalExpense.ToString("F") + " $";
 
-            var profit = (totalIncome - totalExpense).ToString() + " $";
+            var profit = totalIncome - totalExpense;
+
+            ViewBag.Profit = profit.ToString("F") + " $";
+
+            //var calendarProfit = _context.Transactions.GroupBy(t => t.Date).Select(t => new {t.Key, t.Sum(t.Value)}));
+
+            Task.Run(() => FillCalendarProfits());
 
             return View(list.OrderBy(t => t.Date).ToList());
         }
@@ -97,6 +103,17 @@ namespace FinancialNotepad.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+
+        [NonAction]
+        public void FillCalendarProfits()
+        {
+            var calendarProfits = from p in _context.Transactions 
+                group p by p.Date into g
+                select new{StartTime = g.Key, EndTime = g.Key, 
+                    Subject = g.Sum(item=> item.Type == "Expense"? -item.Amount : item.Amount )} ;
+            ViewBag.CalendarProfits = calendarProfits;
         }
 
         [NonAction]

@@ -1,7 +1,12 @@
-﻿@model IEnumerable<FinancialNotepad.Models.Transaction>
+﻿@using Microsoft.AspNetCore.Mvc.Diagnostics
+@using Syncfusion.EJ2.Schedule
+@model IEnumerable<FinancialNotepad.Models.Transaction>
 
 @{
-    ViewBag.Balance = "100$";
+    List<ScheduleView> viewOption = new List<ScheduleView>()
+    {
+        new ScheduleView { Option = Syncfusion.EJ2.Schedule.View.Month}
+    };
 }
 
 <div class="row mb-3">
@@ -10,7 +15,7 @@
         <div class="d-flex flex-row widget summary income">
             <div class="d-flex flex-column m-auto py-3">
 
-                <h3 class="fw-bold">+ @ViewBag.TotalIncome</h3>
+                <h3 class="fw-bold">@ViewBag.TotalIncome</h3>
             </div>
         </div>
     </div>
@@ -19,7 +24,7 @@
         <h4>Expense</h4>
         <div class="d-flex flex-row widget summary expense">
             <div class="d-flex flex-column m-auto py-3">
-                <h3 class="fw-bold">- @ViewBag.TotalExpense</h3>
+                <h3 class="fw-bold">@ViewBag.TotalExpense</h3>
             </div>
         </div>
     </div>
@@ -28,50 +33,70 @@
         <h4>Profit</h4>
         <div class="d-flex flex-row widget summary balance">
             <div class="d-flex flex-column m-auto py-3">
-                <h3 class="fw-bold">= @ViewBag.Balance</h3>
+                <h3 class="fw-bold">@ViewBag.Profit</h3>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div>
-            <div style="margin-left: 50px;margin-top:60px">
-                <a class="btn btn-secondary action-btn-white" href="/Transaction/AddOrEdit">
+            <div style="margin-left: 50px; margin-top: 30px">
+                
+                <a class="btn btn-secondary action-btn-white mb-2" href="/Transaction/AddOrEdit">
                     New Transaction
                 </a>
+                
+                <div class="e-btn-group custom-rbt-group">
+                    <input type="radio" id="radioleft" name="Type" checked
+                           onclick="view_change_list();" value="1"/>
+                    <label class="e-btn" for="radioleft">List</label>
+                    <input type="radio" id="radioright" name="Type"
+                           onclick="view_change_calendar();" value="2"/>
+                    <label class="e-btn" for="radioright">Dates</label>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row form-row">
-    <div class="col-md-12">
-        <ejs-grid id="transactions_grid" dataSource="@Model" allowSorting="true" allowFiltering="true" 
-                  allowPaging="true" allowSelection="true" toolbarClick="toolbarClick" allowExcelExport="true" 
-                  toolbar="@(new List<string>() { "ExcelExport" })" allowGrouping="true" allowTextWrap="true" allowMultiSorting="true">
-            <e-grid-groupsettings  showDropArea="false" showGroupedColumn="true" columns="@(new string[] { "Date"})"></e-grid-groupsettings>
-            <e-grid-filtersettings mode="Immediate" showFilterBarOperator="true" type="Excel" showFilterBarStatus="true"></e-grid-filtersettings>
-            <e-grid-pagesettings pageSize="20"></e-grid-pagesettings>
-            <e-grid-columns>
-                <e-grid-column headerText="Date" field="Date" width="120px"
-                               type="date" format="dd.MM.yyyy" textAlign="Center"></e-grid-column>
-                <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Center" width="140px"></e-grid-column>
-                <e-grid-column headerText="Currency" field="Currency.Name" textAlign="Center" width="140px"></e-grid-column>
-                <e-grid-column headerText="Type" template="#typeColumnTemplate" textAlign="Center" width="100px"></e-grid-column>
-                <e-grid-column headerText="Category" field="CategoryTitleAndIcon" textAlign="Center" width="200px"></e-grid-column>
-                <e-grid-column headerText="Actions" template="#actionColumnTemplate" textAlign="Center" width="80px"></e-grid-column>
-            </e-grid-columns>
-        </ejs-grid>
-    </div>
+<div class="widget p-4" id="t_calendar" style="display: none">
+    <ejs-schedule id="transactions_calendar" readonly="true" views="viewOption" cssClass="schedule-cell-dimension">
+        <e-schedule-eventsettings dataSource ="@ViewBag.CalendarProfits"></e-schedule-eventsettings>
+        <e-schedule-views>
+            <e-schedule-view option="MonthAgenda"></e-schedule-view>
+            <e-schedule-view option="Month"></e-schedule-view>
+        </e-schedule-views>
+    </ejs-schedule>
+    
 </div>
 
-<script>
-    function toolbarClick(args) {
-        var gridObj = document.getElementById("transactions_grid").ej2_instances[0];
-        if (args.item.id === 'Grid_excelexport') {
-            gridObj.excelExport();
-        }
-    }
-</script>
+
+
+
+
+
+<div class="row form-row">
+    <div class="col-md-12">
+        <div id="t_list" class="widget p-1">
+            <ejs-grid id="transactions_grid" dataSource="@Model" allowGrouping="false" allowSorting="true" allowFiltering="true" 
+                      allowPaging="true" allowSelection="true" excelExportComplete="excelExportComplete" 
+                      allowExcelExport="true" created="transactions_grid_created" toolbarClick="toolbarClick"
+                      toolbar="@(new List<string>() {"ExcelExport"})"  >
+                <e-grid-groupsettings columns="@(new string[] {"Date"})" showUngroupButton="false" showGroupedColumn="true"></e-grid-groupsettings>
+                <e-grid-filtersettings mode="Immediate" showFilterBarOperator="true" type="Excel" showFilterBarStatus="true"></e-grid-filtersettings>
+                <e-grid-pagesettings pageSize="20"></e-grid-pagesettings>
+                <e-grid-columns>
+                    <e-grid-column headerText="Date" field="Date" width="120px"
+                                   type="date" format="dd.MM.yyyy" textAlign="Center"></e-grid-column>
+                    <e-grid-column headerText="Amount" field="FormattedAmount" textAlign="Center" width="140px"></e-grid-column>
+                    <e-grid-column headerText="Currency" field="Currency.Name" textAlign="Center" width="140px"></e-grid-column>
+                    <e-grid-column headerText="Type" template="#typeColumnTemplate" textAlign="Center" width="100px"></e-grid-column>
+                    <e-grid-column headerText="Category" field="CategoryTitleAndIcon" textAlign="Center" width="200px"></e-grid-column>
+                    <e-grid-column headerText="Actions" template="#actionColumnTemplate" textAlign="Center" width="80px"></e-grid-column>
+                </e-grid-columns>
+            </ejs-grid>
+        </div>
+    </div>
+</div>
 
 <script id="typeColumnTemplate" type="text/x-template">
     ${if(Type=="Income")}
@@ -94,6 +119,49 @@
             </button>
         </form>
     </div>
+</script>
+
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("transactions_grid").ej2_instances[0];
+        if (args.item.id === 'transactions_grid_excelexport') {
+            this.columns[3].visible = false;
+            this.columns[5].visible = false;
+            gridObj.showSpinner();
+            gridObj.excelExport();
+        }
+    }
+
+    function excelExportComplete(args) {
+        this.hideSpinner();
+    }
+</script>
+
+<script>
+    function before_export(parameters) {
+        var gridObj = document.getElementById("transactions_grid").ej2_instances[0];
+        gridObj.setAttribute("allowGrouping","false");
+    }
+</script>
+
+<script>
+    function transactions_grid_created() {
+        var toolbar = this.element.querySelector('.e-toolbar');
+        this.element.appendChild(toolbar);
+    }
+</script>
+
+<script>
+    function view_change_list() {
+        $('#t_calendar').hide();
+        $('#t_list').show();
+        
+    }
+
+    function view_change_calendar() {
+        $('#t_list').hide();
+        $('#t_calendar').show();
+    }
 </script>
 
 <!--
