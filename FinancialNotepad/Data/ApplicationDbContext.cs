@@ -18,5 +18,6 @@ namespace FinancialNotepad.Data
         public DbSet<CheckingAccount> CheckingAccounts { get; set; }
         public DbSet<Credit> Credits { get; set; }
         public DbSet<Credit> Deposit { get; set; }
+        public DbSet<Subscription> Subscriptions {get;set;}
     }
 }

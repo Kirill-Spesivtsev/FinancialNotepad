@@ -2,12 +2,6 @@
 @using Syncfusion.EJ2.Schedule
 @model IEnumerable<FinancialNotepad.Models.Transaction>
 
-@{
-    List<ScheduleView> viewOption = new List<ScheduleView>()
-    {
-        new ScheduleView { Option = Syncfusion.EJ2.Schedule.View.Month}
-    };
-}
 
 <div class="row mb-3">
     <div class="col-md-3">
@@ -59,7 +53,7 @@
 </div>
 
 <div class="widget p-4" id="t_calendar" style="display: none">
-    <ejs-schedule id="transactions_calendar" readonly="true" views="viewOption" cssClass="schedule-cell-dimension">
+    <ejs-schedule id="transactions_calendar" readonly="true" cssClass="schedule-cell-dimension">
         <e-schedule-eventsettings dataSource ="@ViewBag.CalendarProfits"></e-schedule-eventsettings>
         <e-schedule-views>
             <e-schedule-view option="MonthAgenda"></e-schedule-view>

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using FinancialNotepad.Data;
 using FinancialNotepad.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,10 @@ namespace FinancialNotepad.Controllers
             _logger = logger;
         }
 
+        
+
          // GET: Transaction
+         [Authorize]
         public async Task<IActionResult> Index()
         {
             var list = 
@@ -27,32 +31,15 @@ namespace FinancialNotepad.Controllers
                     .Include(t => t.Currency)
                     .Include(t => t.Tax);
 
-            List<Transaction> SelectedTransactions = await _context.Transactions
-                .Include(x => x.Category)
-                .ToListAsync();
+            await Task.Run(FillStatus);
 
-            double totalIncome = SelectedTransactions
-                .Where(i => i.Type == "Income")
-                .Sum(j => j.Amount);
-            ViewBag.TotalIncome = totalIncome.ToString("F") + " $";
-
-            double totalExpense = SelectedTransactions
-                .Where(i => i.Type == "Expense")
-                .Sum(j => j.Amount);
-            ViewBag.TotalExpense = totalExpense.ToString("F") + " $";
-
-            var profit = totalIncome - totalExpense;
-
-            ViewBag.Profit = profit.ToString("F") + " $";
-
-            //var calendarProfit = _context.Transactions.GroupBy(t => t.Date).Select(t => new {t.Key, t.Sum(t.Value)}));
-
-            Task.Run(() => FillCalendarProfits());
+            await Task.Run(FillCalendarProfits);
 
             return View(list.OrderBy(t => t.Date).ToList());
         }
 
         // GET: Transaction/AddOrEdit
+        [Authorize]
         public IActionResult AddOrEdit(int id = 0)
         {
             
@@ -64,6 +51,7 @@ namespace FinancialNotepad.Controllers
         }
 
         // POST: Transaction/AddOrEdit
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEdit
@@ -90,6 +78,7 @@ namespace FinancialNotepad.Controllers
         }
 
         // POST: Transaction/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -105,6 +94,27 @@ namespace FinancialNotepad.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [NonAction]
+        public void FillStatus()
+        {
+            List<Transaction> SelectedTransactions = _context.Transactions
+                .Include(x => x.Category)
+                .ToList();
+            double totalIncome = SelectedTransactions
+                .Where(i => i.Type == "Income")
+                .Sum(j => j.Amount);
+            ViewBag.TotalIncome = totalIncome.ToString("F") + " $";
+
+            double totalExpense = SelectedTransactions
+                .Where(i => i.Type == "Expense")
+                .Sum(j => j.Amount);
+            ViewBag.TotalExpense = totalExpense.ToString("F") + " $";
+
+            var profit = totalIncome - totalExpense;
+
+            ViewBag.Profit = profit.ToString("F") + " $";
+        }
 
         [NonAction]
         public void FillCalendarProfits()

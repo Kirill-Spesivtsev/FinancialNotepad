@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace FinancialNotepad.Models;
 
@@ -19,6 +20,8 @@ public class Transaction
 
     public DateTime Date { get; set; } = DateTime.Now;
 
+    public string UserId { get; set; }
+    public IdentityUser User { get; set; }
 
     [Range(1,int.MaxValue,ErrorMessage ="Please select Category")]
     public int CategoryId { get; set; }

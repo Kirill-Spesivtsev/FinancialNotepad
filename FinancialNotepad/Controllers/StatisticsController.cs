@@ -19,7 +19,7 @@ namespace FinancialNotepad.Controllers
         public async Task<ActionResult> Index()
         {
 
-            DateTime StartDate = DateTime.Today.AddDays(-6);
+            DateTime StartDate = DateTime.Today.AddDays(-30);
             DateTime EndDate = DateTime.Today;
 
             List<Transaction> SelectedTransactions = await _context.Transactions
