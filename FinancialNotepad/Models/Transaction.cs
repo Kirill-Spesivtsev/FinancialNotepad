@@ -20,8 +20,7 @@ public class Transaction
 
     public DateTime Date { get; set; } = DateTime.Now;
 
-    public string UserId { get; set; }
-    public IdentityUser User { get; set; }
+    public string UserId { get; set; } = "";
 
     [Range(1,int.MaxValue,ErrorMessage ="Please select Category")]
     public int CategoryId { get; set; }

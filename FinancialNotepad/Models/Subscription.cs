@@ -14,9 +14,7 @@ namespace FinancialNotepad.Models
         public int PayPrice { get; set; }
         public int CurrencyId { get; set; }
 
-        [Required]
-        [ForeignKey("ApplicationUser")]
-        public virtual string UserId { get; set; }
+        public string UserId { get; set; } = "";
 
     }
 }

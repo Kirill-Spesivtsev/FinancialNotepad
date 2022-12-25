@@ -1,28 +1,34 @@
 ﻿using System.Globalization;
 using FinancialNotepad.Data;
 using FinancialNotepad.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinancialNotepad.Controllers
 {
+    [Authorize]
     public class StatisticsController : Controller
     {
 
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public StatisticsController(ApplicationDbContext context)
+        public StatisticsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<ActionResult> Index()
         {
-
+            var userId = _userManager.GetUserId(User);
             DateTime StartDate = DateTime.Today.AddDays(-30);
             DateTime EndDate = DateTime.Today;
 
             List<Transaction> SelectedTransactions = await _context.Transactions
+                .Where(q => q.UserId == userId)
                 .Include(x => x.Category)
                 .Where(y => y.Date >= StartDate && y.Date <= EndDate)
                 .ToListAsync();
@@ -93,6 +99,7 @@ namespace FinancialNotepad.Controllers
                     };
 
             ViewBag.RecentTransactions = await _context.Transactions
+                .Where(q => q.UserId == userId)
                 .Include(i => i.Category)
                 .OrderByDescending(j => j.Date)
                 .Take(5)

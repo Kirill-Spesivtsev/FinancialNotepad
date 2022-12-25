@@ -16,6 +16,8 @@ public class Category
     [Column(TypeName = "nvarchar(20)")]
     public string? Icon { get; set; } = "";
 
+    public string UserId { get; set; } = "";
+
     [JsonIgnore]
     public List<Transaction> Transactions { get; set; }
 

@@ -1,4 +1,5 @@
-﻿@model FinancialNotepad.Models.Transaction
+﻿@using Microsoft.AspNetCore.Identity
+@model FinancialNotepad.Models.Transaction
 
 @{
     ViewData["PageTitle"] = Model.TransactionId == 0 ? "Create a new transaction" : "Edit transaction";
@@ -10,6 +11,11 @@
     <div class="col-md-8">
         <div class="widget p-5" style="background-color: #ffffff">
             <form asp-action="AddOrEdit">
+                <div class="flex-grow-1">
+                    <h3>@ViewData["PageTitle"]</h3>
+                </div>
+                <hr/>
+                <div class="mb-4"></div>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     <div class="e-btn-group custom-rbt-group">
@@ -36,7 +42,7 @@
                                  floatLabelType="Always" multiline="true"></ejs-textbox>
                 </div>
                 <div class="mb-3">
-                    <ejs-dropdownlist id="ddlCategory" ejs-for="CategoryId" 
+                    <ejs-dropdownlist id="ddlCategory" ejs-for="CategoryId"
                                       dataSource="@ViewBag.Categories" placeholder="Category"
                                       floatLabelType="Always" allowFiltering="true" ignoreAccent="true"
                                       filterType="Contains" popupHeight="220px">
@@ -56,7 +62,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <ejs-dropdownlist id="ddlTax" ejs-for="TaxId" 
+                    <ejs-dropdownlist id="ddlTax" ejs-for="TaxId"
                                       dataSource="@ViewBag.Taxes" placeholder="Tax"
                                       floatLabelType="Always" allowFiltering="true" ignoreAccent="true"
                                       filterType="Contains" popupHeight="220px">
@@ -72,9 +78,7 @@
 
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

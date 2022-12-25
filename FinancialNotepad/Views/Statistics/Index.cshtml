@@ -1,26 +1,7 @@
 ﻿@{
-   
+    ViewData["PageTitle"] = "Statistics";
 }
 
-<div class="@(ViewData["isDashboard"] == null?"col-md-10":"col-md-12")">
-    <div class="row">
-        <div class="col-md-10">
-            <div class="d-flex flex-column">
-                <div class="d-flex mb-1">
-                    <div class="flex-grow-1">
-                        <h3 class="fw-bold">@ViewData["PageTitle"]</h3>
-                    </div>
-                    <div>
-                        <a class="btn btn-success action-btn-white" href="@ViewData["PageActionUrl"]">
-                            @ViewData["PageActionText"]
-                        </a>
-                    </div>
-                </div>
-                                            
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="row mb-3">
@@ -60,7 +41,7 @@
             <div class="p-4">
                 <h5 class="fw-bold">Expense By Category</h5>
             </div>
-            <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#1a222b">
+            <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#ffffff">
                 <e-accumulation-series-collection>
                     <e-accumulation-series dataSource="@ViewBag.DoughnutChartData"
                                            xName="categoryTitleWithIcon" yName="amount"
@@ -81,7 +62,7 @@
             <div class="p-4">
                 <h5 class="fw-bold">Income vs Expense</h5>
             </div>
-            <ejs-chart id="spline-chart" background="#1a222b"
+            <ejs-chart id="spline-chart" background="#ffffff"
                        palettes=@(new string[]{"#54ffa9","#ffe91a"})>
                 <e-chart-primaryxaxis valueType="Category">
                     <e-majorgridlines width="0"></e-majorgridlines>

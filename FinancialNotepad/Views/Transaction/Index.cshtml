@@ -33,13 +33,13 @@
     </div>
     <div class="col-md-3">
         <div>
-            <div style="margin-left: 50px; margin-top: 30px">
+            <div style="margin-top: 30px">
                 
-                <a class="btn btn-secondary action-btn-white mb-2" href="/Transaction/AddOrEdit">
+                <a class="btn btn-secondary action-btn-white mb-2" href="/Transaction/AddOrEdit" style="width: 100%">
                     New Transaction
                 </a>
                 
-                <div class="e-btn-group custom-rbt-group">
+                <div class="e-btn-group custom-rbt-group" style="min-width: 110px">
                     <input type="radio" id="radioleft" name="Type" checked
                            onclick="view_change_list();" value="1"/>
                     <label class="e-btn" for="radioleft">List</label>
@@ -53,11 +53,12 @@
 </div>
 
 <div class="widget p-4" id="t_calendar" style="display: none">
-    <ejs-schedule id="transactions_calendar" readonly="true" cssClass="schedule-cell-dimension">
+    <ejs-schedule id="transactions_calendar" readonly="true"
+                  cssClass="schedule-cell-dimension">
         <e-schedule-eventsettings dataSource ="@ViewBag.CalendarProfits"></e-schedule-eventsettings>
         <e-schedule-views>
-            <e-schedule-view option="MonthAgenda"></e-schedule-view>
-            <e-schedule-view option="Month"></e-schedule-view>
+            <e-schedule-view option="MonthAgenda" readonly="true"></e-schedule-view>
+            <e-schedule-view option="Month" readonly="true"></e-schedule-view>
         </e-schedule-views>
     </ejs-schedule>
     
@@ -72,7 +73,7 @@
     <div class="col-md-12">
         <div id="t_list" class="widget p-1">
             <ejs-grid id="transactions_grid" dataSource="@Model" allowGrouping="false" allowSorting="true" allowFiltering="true" 
-                      allowPaging="true" allowSelection="true" excelExportComplete="excelExportComplete" 
+                      allowPaging="false" allowSelection="true" excelExportComplete="excelExportComplete" 
                       allowExcelExport="true" created="transactions_grid_created" toolbarClick="toolbarClick"
                       toolbar="@(new List<string>() {"ExcelExport"})"  >
                 <e-grid-groupsettings columns="@(new string[] {"Date"})" showUngroupButton="false" showGroupedColumn="true"></e-grid-groupsettings>
