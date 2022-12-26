@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using Stripe.Checkout;
+using FinancialNotepad.Models;
+using Subscription = FinancialNotepad.Models.Subscription;
 
 namespace FinancialNotepad.Controllers
 {
@@ -14,9 +17,12 @@ namespace FinancialNotepad.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger _logger;
 
+        private int amount = 10;
+
         
         public SubscriptionController(ApplicationDbContext context, ILogger<TransactionController> logger, UserManager<IdentityUser> userManager)
         {
+            
             _context = context;
             _logger = logger;
             _userManager = userManager;
@@ -25,12 +31,15 @@ namespace FinancialNotepad.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Checkout");
         }
 
         [HttpPost]
-        public ActionResult MakePayment(string amount)
+        public ActionResult MakePayment()
         {
+
+            var basepath = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+
             var options = new Stripe.Checkout.SessionCreateOptions
             {
                 LineItems = new List<SessionLineItemOptions>
@@ -39,11 +48,11 @@ namespace FinancialNotepad.Controllers
                     {
                         PriceData = new SessionLineItemPriceDataOptions
                         {
-                            UnitAmount =Convert.ToInt32(amount),
+                            UnitAmount = Convert.ToInt32(amount) * 100,
                             Currency = "usd",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = "SubscriptionMonth",
+                                Name = "Subscription Month",
                             },
 
                         },
@@ -51,15 +60,34 @@ namespace FinancialNotepad.Controllers
                     },
                 },
                 Mode = "payment",
-                SuccessUrl = "/Subscription/Success",
-                CancelUrl = "/Subscription/Cancel",
+                SuccessUrl = basepath + @"/Subscription/Success",
+                CancelUrl = basepath + @"/Subscription/Cancel",
             };
 
             var service = new Stripe.Checkout.SessionService();
             Stripe.Checkout.Session session = service.Create(options);
 
             Response.Headers.Add("Location", session.Url);
-            return View();
+            return new StatusCodeResult(303);
+        }
+
+        
+        public async Task<IActionResult> Success()
+        {
+            string userId = _userManager.GetUserId(User);
+            var sub = new Subscription
+            {
+                CurrencyId = 1, 
+                DateStart = DateTime.Now, 
+                DateEnd = DateTime.Now + TimeSpan.FromDays(30), 
+                PayPrice = 10,
+                UserId = userId
+            };
+            _context.Subscriptions.Add(sub);
+            IdentityUser user = _userManager.FindByIdAsync(userId).Result;
+            await _userManager.AddToRoleAsync(user, "SUBSCRIBER");
+            await _context.SaveChangesAsync();
+            return View("Success");
         }
     }
 }

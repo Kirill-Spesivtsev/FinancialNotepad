@@ -24,7 +24,7 @@ public class Credit
     [Required]
     public double AnnualPercent { get; set; }
 
-    [Required]
+
     public int Period { get; set; }
 
     public double LeftToPay { get; set; }

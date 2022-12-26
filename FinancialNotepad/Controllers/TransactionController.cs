@@ -135,6 +135,7 @@ namespace FinancialNotepad.Controllers
             var profit = totalIncome - totalExpense;
 
             ViewBag.Profit = profit.ToString("F") + " $";
+
         }
 
         [NonAction]
