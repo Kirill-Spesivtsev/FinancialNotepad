@@ -24,7 +24,7 @@ namespace FinancialNotepad.Controllers
         public async Task<ActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
-            DateTime StartDate = DateTime.Today.AddDays(-30);
+            DateTime StartDate = DateTime.Today.AddDays(-365);
             DateTime EndDate = DateTime.Today;
 
             List<Transaction> SelectedTransactions = await _context.Transactions
@@ -81,7 +81,7 @@ namespace FinancialNotepad.Controllers
                 })
                 .ToList();
 
-            string[] LastData = Enumerable.Range(0, 30)
+            string[] LastData = Enumerable.Range(0, 365)
                 .Select(i => StartDate.AddDays(i).ToString("dd-MM-yyyy"))
                 .ToArray();
 
@@ -104,7 +104,6 @@ namespace FinancialNotepad.Controllers
                 .OrderByDescending(j => j.Date)
                 .Take(5)
                 .ToListAsync();
-
 
             return View();
         }

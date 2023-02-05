@@ -17,7 +17,7 @@ namespace FinancialNotepad.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger _logger;
 
-        private int amount = 10;
+        private int amount = 6;
 
         
         public SubscriptionController(ApplicationDbContext context, ILogger<TransactionController> logger, UserManager<IdentityUser> userManager)

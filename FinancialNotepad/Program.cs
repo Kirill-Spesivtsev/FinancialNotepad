@@ -1,6 +1,7 @@
 using FinancialNotepad.Data;
 using FinancialNotepad.Models;
 using FinancialNotepad.Services;
+using MathExpressionConstructor;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -9,8 +10,7 @@ using Newtonsoft.Json;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+var adServiceName = "Administration";
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -34,12 +34,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(
 
 
 builder.Services.AddRazorPages();
-
+builder.Services.AddCoreAdmin("Admin");
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddSingleton<IMathExprConstructor, ParserMain>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
 
-//Add These
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 
@@ -77,5 +77,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Transaction}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+app.UseCoreAdminCustomUrl(adServiceName);
+app.UseCoreAdminCustomTitle(adServiceName);
 
 app.Run();

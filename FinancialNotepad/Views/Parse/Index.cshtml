@@ -1,0 +1,17 @@
+﻿
+@model FinancialNotepad.ViewModels.TextBlockModel
+
+<div class="row centered-content">
+<div class="col-md-6 ">
+    <div class="widget p-3">
+        <form asp-action="Parse" method="post" class="m-4">
+            <input asp-for="Text" type="text" class="m-2"/>
+            <p>
+                <input type="submit" value="Enter" />
+            </p>
+        </form>
+        
+    </div>
+    <div class="widget p-3">
+        <span>@ViewBag.ExprResult</span></div>
+</div></div>

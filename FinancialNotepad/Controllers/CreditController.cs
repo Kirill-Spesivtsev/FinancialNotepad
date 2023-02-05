@@ -1,95 +1,109 @@
 ﻿using FinancialNotepad.Data;
+using FinancialNotepad.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinancialNotepad.Controllers
 {
+    [Authorize]
     public class CreditController : Controller
     {
         public ApplicationDbContext _context;
         public ILogger<CreditController> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CreditController(ApplicationDbContext context, ILogger<CreditController> logger)
+        public CreditController(ApplicationDbContext context, ILogger<CreditController> logger, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _logger = logger;
+            _userManager = userManager;
 
         }
 
         // GET: CreditController
         public ActionResult Index()
         {
-            return View();
+            var _userId = _userManager.GetUserId(User);
+            ViewBag.UserId = _userId;
+            //var crts =_context.Credits.Where(q => q.UserId == _userId).Include(t => t.Currency);
+
+            return View(/*crts.ToList()*/);
         }
 
-        // GET: CreditController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult AddOrEdit(int id = 0)
         {
-            return View();
+            FillSelects();
+            if (id == 0)
+            {
+                return View(new Credit{CreditId = 0});
+            }
+
+            else
+            {
+                //var cr = _context.Credits.Find(id);
+                return View(/*cr*/);
+            }
+                
         }
 
-        // GET: CreditController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CreditController/Create
+        // POST: Transaction/AddOrEdit
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> AddOrEdit
+        ([Bind("CreditId,Description,Status,Type,TotalSum,CurrencyId,AnnualPercent,Period,LeftToPay,UserId")] 
+            Credit credit)
         {
-            try
+            
+            ModelState.Clear();
+            var userId = _userManager.GetUserId(User);
+            credit.UserId = userId;
+
+
+            if (ModelState.IsValid)
             {
+                if (credit.CreditId == 0)
+                    _context.Add(credit);
+                else
+                    _context.Update(credit);
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            FillSelects();
+            
+            return View(credit);
         }
 
-        // GET: CreditController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CreditController/Edit/5
-        [HttpPost]
+        // POST: Credit/Delete/5
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
+
+            var transaction = await _context.Transactions.FindAsync(id);
+            if (transaction != null)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Transactions.Remove(transaction);
             }
-            catch
-            {
-                return View();
-            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: CreditController/Delete/5
-        public ActionResult Delete(int id)
+
+        [NonAction]
+        public void FillSelects()
         {
-            return View();
+            var currencies = _context.Currencies.ToList();
+            ViewBag.Currencies = currencies;
         }
 
-        // POST: CreditController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

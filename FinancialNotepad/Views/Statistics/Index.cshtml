@@ -43,19 +43,19 @@
         <div class="col-md-4">
             <div class="widget chart">
                 <div class="p-4">
-                    <h5 class="fw-bold">Expense By Category</h5>
+                    <h5 class="fw-bold">Expenses By Category</h5>
                 </div>
                 <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#ffffff">
                     <e-accumulation-series-collection>
                         <e-accumulation-series dataSource="@ViewBag.DoughnutChartData"
                                                xName="categoryTitleWithIcon" yName="amount"
                                                innerRadius="60%" legendShape="Circle" 
-                                               palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})>
+                                               palettes=@(new string[]{"#EC6B56","#FFC154","#47B39C","#6050DC","#D52DB7","#AADEA7","#2D87BB","#4c2090","#313e93","#0096ac"})>
                             <e-accumulationseries-datalabel name="formattedAmount" visible></e-accumulationseries-datalabel>
                         </e-accumulation-series>
                     </e-accumulation-series-collection>
                     <e-accumulationchart-legendsettings position="Top" toggleVisibility="false">
-                        <e-legendsettings-textstyle color="#fff" size="1rem"></e-legendsettings-textstyle>
+                        <e-legendsettings-textstyle color="#000" size="1rem"></e-legendsettings-textstyle>
                     </e-accumulationchart-legendsettings>
                     <e-accumulationchart-tooltipsettings enable></e-accumulationchart-tooltipsettings>
                 </ejs-accumulationchart>
@@ -64,10 +64,10 @@
         <div class="col-md-8">
             <div class="widget chart">
                 <div class="p-4">
-                    <h5 class="fw-bold">Income vs Expense</h5>
+                    <h5 class="fw-bold">Income and Expense</h5>
                 </div>
                 <ejs-chart id="spline-chart" background="#ffffff"
-                           palettes=@(new string[]{"#54ffa9","#ffe91a"})>
+                           palettes=@(new string[]{"#54ffa9","#fa6f0c"})>
                     <e-chart-primaryxaxis valueType="Category">
                         <e-majorgridlines width="0"></e-majorgridlines>
                         <e-majorticklines width="0"></e-majorticklines>

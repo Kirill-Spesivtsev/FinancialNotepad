@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CoreAdmin" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
@@ -30,6 +31,13 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Views\Tax\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MathExpressionConstructor">
+      <HintPath>..\..\Constructor\MathExpressionConstructor.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

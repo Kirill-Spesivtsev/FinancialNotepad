@@ -1,0 +1,57 @@
+﻿@model FinancialNotepad.ViewModels.EconomyMetrics;
+
+<div class="row centered-content">
+    <div class="col-md-6 ">
+        <div class="widget p-3">
+            <section>
+                <form asp-action="Calculate" method="post">
+                    <h2>Metrics</h2>
+                    <hr/>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Expense" type="number" step="1" class="form-control" aria-required="true"/>
+                        <label asp-for="Expense" class="form-label">Expenses</label>
+                        <span asp-validation-for="Expense" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="Income" type="number" step="1" class="form-control" aria-required="true"/>
+                        <label asp-for="Income" class="form-label">Income</label>
+                        <span asp-validation-for="Income" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="VariableCosts" type="number" step="0.01" class="form-control" aria-required="true"/>
+                        <label asp-for="VariableCosts" class="form-label">Variable costs</label>
+                        <span asp-validation-for="VariableCosts" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="CommonTaxPercent" type="number" min="1" max="100" class="form-control" aria-required="true"/>
+                        <label asp-for="CommonTaxPercent" class="form-label">Sum Tax Percent</label>
+                        <span asp-validation-for="CommonTaxPercent" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="UsefulPeriod"  type="number" min="1" max="10000" class="form-control" aria-required="true" style="min-height: 100px"/>
+                        <label asp-for="UsefulPeriod" class="form-label">Fixed Assets Usage Period (Month)</label>
+                        <span asp-validation-for="UsefulPeriod" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input asp-for="AmSumCosts"  type="number" min="1" class="form-control" aria-required="true" style="min-height: 100px"/>
+                        <label asp-for="AmSumCosts" class="form-label">Fixed assets value</label>
+                        <span asp-validation-for="AmSumCosts" class="text-danger"></span>
+                    </div>
+                    <div class="mb-1">
+                        <button type="submit" class="w-100 btn btn-lg btn-primary">Enter</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <div class="col-md-6 ">
+        <div class="widget p-3">
+            <h4>Marginal Income: <span>@Model.MrjIncome.ToString("0.###")</span></h4>
+            <h4>Pure Profit: <span>@Model.PureProfit.ToString("0.###")</span></h4>
+            <h4>Monthly Amortization Expenses: <span>@Model.AmDed.ToString("0.###")</span></h4>
+        </div>
+    </div>
+
+</div>
+

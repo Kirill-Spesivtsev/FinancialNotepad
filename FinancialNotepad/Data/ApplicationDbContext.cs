@@ -15,9 +15,9 @@ namespace FinancialNotepad.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Tax> Taxes { get; set; }
         public DbSet<Currency> Currencies { get; set; }
-        public DbSet<CheckingAccount> CheckingAccounts { get; set; }
-        public DbSet<Credit> Credits { get; set; }
-        public DbSet<Credit> Deposit { get; set; }
+        //public DbSet<CheckingAccount> CheckingAccounts { get; set; }
+        //public DbSet<Credit> Credits { get; set; }
+        //public DbSet<Credit> Deposit { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
     }
 }

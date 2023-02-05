@@ -18,6 +18,16 @@
                     <label asp-for="Input.Email"></label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
+                
+                <div class="mb-3">
+                    <div class="e-btn-group custom-rbt-group">
+                        <input type="radio" id="radioleft2" asp-for="Input.UserType" value="PrivateUser" checked="@(Model?.Input?.UserType == "PrivateUser" || Model?.Input == null)"/>
+                        <label class="e-btn" for="radioleft2">Private use</label>
+                        <input type="radio" id="radioright2" asp-for="Input.UserType" value="Accountant" checked="@(Model?.Input?.UserType == "Accountant")"/>
+                        <label class="e-btn" for="radioright2">Accounting</label>
+                    </div>
+                </div>
+
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"/>
                     <label asp-for="Input.Password"></label>
