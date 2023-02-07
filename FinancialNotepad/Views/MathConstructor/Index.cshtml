@@ -1,0 +1,21 @@
+﻿@using Microsoft.JSInterop
+@model FinancialNotepad.ViewModels.MathExpression
+
+<div class="row centered-content">
+    <div class="col-md-6 ">
+        <div class="widget p-3">
+            <form asp-action="Parse" asp-route-text="">
+                <div class="mb-3">
+                    <ejs-textbox id="note" placeholder="Expression to calculate" ejs-for="InputText" 
+                                 multiline="true"></ejs-textbox>
+                </div>
+                
+                <div class="mb-3">
+                    @ViewBag?.ExprResult
+                </div>
+
+                <ejs-button id="submit" type="submit" content="Calculate" cssClass="e-success"></ejs-button>
+            </form>
+        </div>
+    </div>
+</div>
