@@ -1,0 +1,35 @@
+﻿
+<div class="row form-row">
+    <div class="col-md-12">
+        <div class="widget p-2">
+            <h1 class="mb-2">Subscriptions</h1>
+            @if( (bool) ViewBag.UserSubscribed)
+            {
+                <h5 class="mb-2">Want to unsubscribe?</h5>
+                <form action="/Subscription/Cancel" method="POST" onsubmit="unsubSubmit()">
+                    <button class="btn btn-primary btn-lg" type="submit">Unsubscribe</button>
+                </form>
+            }
+            else
+            {
+                <h5 class="mb-2">You can buy premium subscription here...</h5>
+                <form action="/Subscription/Subscribe" method="POST">
+                    <input type="hidden" id="TextBox1" placeholder="amount" name="amount" value="6"/><br/>
+                    <button class="btn btn-primary btn-lg" type="submit">Purchase</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function unsubSubmit()
+    {                                 
+        if(window.confirm("Are you sure you want to unsubscribe? \n(Money for remaining period won't be returned)"))
+        {                       
+            return true;
+        }
+        else return false;                
+    }
+</script>

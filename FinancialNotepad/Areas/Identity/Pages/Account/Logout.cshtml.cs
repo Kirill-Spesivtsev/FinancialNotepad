@@ -29,11 +29,12 @@ namespace FinancialNotepad.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {
-                return LocalRedirect(returnUrl);
+                //return LocalRedirect(returnUrl);
+                return RedirectToPage("/Identity/Account/Login");
             }
             else
             {
-                return RedirectToPage("/Transaction");
+                return RedirectToPage("/Identity/Account/Login");
             }
         }
     }

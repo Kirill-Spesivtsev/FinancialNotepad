@@ -24,13 +24,5 @@ namespace FinancialNotepad.Controllers
             return View("Index",ec);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Parse(EconomyMetrics ec)
-        {
-            string init = ViewBag.InitialString;
-            var res = _expParser.Parse(init);
-            ViewBag.ExprResult = res;
-            return View("Index",ec);
-        }
     }
 }

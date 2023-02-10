@@ -286,6 +286,9 @@ nav.navbar {
     justify-content: center
 }
 
+.account-manage-nav-item {
+    width: 120px;
+}
 
 .widget {
     border-radius: 1rem;
